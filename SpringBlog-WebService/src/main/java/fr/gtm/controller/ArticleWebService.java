@@ -15,38 +15,39 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.gtm.domaine.Article;
+import fr.gtm.repository.ArticleRepository;
 
 @RestController
 @RequestMapping("/api/article")
 public class ArticleWebService {
 
 	@Autowired
-	private ArticleRepository articleRepo
+	private ArticleRepository articleRepoditory;
 
 	@PostMapping({ "", "/" })
 	Article create(@RequestBody Article article) {
-		return null;
+		return this.articleRepoditory.save(article);
 	}
 
 	@GetMapping("/{articleId}")
 	Article read(@PathVariable Integer articleId) {
-		return null;
+		return this.articleRepoditory.getOne(articleId);
 	}
 
 	@PutMapping("/{articleId}")
 	Article update(@PathVariable Integer articleId, @RequestBody Article article) {
-		return null;
+		return this.articleRepoditory.save(article);
 	}
 
 	@DeleteMapping("/{articleId}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	void delete(@PathVariable Integer articleId) {
-
+		this.articleRepoditory.deleteById(articleId);
 	}
 
 	@GetMapping({ "", "/" })
 	List<Article> list() {
-		return null;
+		return this.articleRepoditory.findAll();
 	}
 
 }
